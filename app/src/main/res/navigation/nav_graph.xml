@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/chatsFragment">
+
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.example.chaty.ui.chats.ChatsFragment"
+        android:label="fragment_chats"
+        tools:layout="@layout/fragment_chats" >
+        <action
+            android:id="@+id/action_chatsFragment_to_conversationFragment"
+            app:destination="@id/conversationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/peopleFragment"
+        android:name="com.example.chaty.ui.people.PeopleFragment"
+        android:label="fragment_people"
+        tools:layout="@layout/fragment_people" >
+        <action
+            android:id="@+id/action_peopleFragment_to_conversationFragment"
+            app:destination="@id/conversationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.chaty.ui.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.chaty.ui.add.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_friendsRequestsFragment"
+            app:destination="@id/friendsRequestsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/friendsRequestsFragment"
+        android:name="com.example.chaty.ui.friends_requests.FriendsRequestsFragment"
+        android:label="fragment_friends_requests"
+        tools:layout="@layout/fragment_friends_requests" />
+    <fragment
+        android:id="@+id/conversationFragment"
+        android:name="com.example.chaty.ui.conversation.ConversationFragment"
+        android:label="fragment_conversation"
+        tools:layout="@layout/fragment_conversation">
+        <argument
+            android:name="user"
+            app:argType="com.example.chaty.model.User" />
+    </fragment>
+</navigation>

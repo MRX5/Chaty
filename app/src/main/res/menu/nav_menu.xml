@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+ <item android:id="@+id/chatsFragment"
+     app:showAsAction="always"
+     android:icon="@drawable/chat"
+     android:title="@string/chats"/>
+
+    <item android:id="@+id/peopleFragment"
+        app:showAsAction="ifRoom"
+        android:title="@string/people"
+        android:icon="@drawable/people"/>
+    <item android:id="@+id/addFragment"
+        app:showAsAction="ifRoom"
+        android:title="@string/add_friend"
+        android:icon="@drawable/add_friend"/>
+
+    <item android:id="@+id/profileFragment"
+        android:title="@string/profile"
+        android:icon="@drawable/profile"
+        app:showAsAction="always"/>
+</menu>
