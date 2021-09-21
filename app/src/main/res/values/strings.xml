@@ -19,4 +19,6 @@
     <string name="sign_up">Sign Up</string>
     <string name="username">Username</string>
     <string name="add_friend">Add Friend</string>
+    <string name="accepted">Accepted</string>
+    <string name="rejected">Rejected</string>
 </resources>
