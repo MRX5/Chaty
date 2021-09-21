@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chaty.R
 import com.example.chaty.model.Message
 import com.example.chaty.utils.Utils
+import kotlinx.android.synthetic.main.received_msg_layout.view.*
+import kotlinx.android.synthetic.main.sent_msg_layout.view.*
 
 class ConversationAdapter(var messages: List<Message>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -44,16 +46,14 @@ class ConversationAdapter(var messages: List<Message>) :
     }
 
     class ViewHolder1(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageText=itemView.findViewById<TextView>(R.id.sent_msg_text)
         fun bind(message: Message) {
-            messageText.text=message.body
+            itemView.sent_msg_text.text=message.body
         }
     }
 
     class ViewHolder2(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val messageText=itemView.findViewById<TextView>(R.id.received_msg_text)
         fun bind(message: Message) {
-            messageText.text=message.body
+            itemView.received_msg_text.text=message.body
         }
     }
 

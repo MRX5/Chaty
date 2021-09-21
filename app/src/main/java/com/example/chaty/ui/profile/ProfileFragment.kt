@@ -1,27 +1,40 @@
 package com.example.chaty.ui.profile
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.chaty.R
-import com.example.chaty.firebase.MyFirebase
-import com.example.chaty.ui.add.AddViewModel
 import com.example.chaty.ui.register.RegisterActivity
 import com.example.chaty.utils.Status
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 
 class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel
+    private lateinit var startForeResult: ActivityResultLauncher<Intent>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
+        startForeResult =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    uploadImage(result.data)
+                }
+            }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -29,31 +42,80 @@ class ProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(requireActivity()).get(ProfileViewModel::class.java)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getUserName().observe(requireActivity(), {
+        getUserInfo()
+        pickImage()
+        setupLogoutButton()
+    }
+
+
+    private fun getUserInfo() {
+        viewModel.getUserInfo().observe(requireActivity(), {
             when (it.status) {
                 Status.SUCCESS -> {
-                    username_profile.text = it.data?.userName
+                    it.data?.let { user ->
+                        profile_username.text = user.userName
+                        if (user.userImageUrl != "default") {
+                            context?.let { it1 ->
+                                Glide.with(it1)
+                                    .load(user.userImageUrl)
+                                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                    .into(profile_user_image)
+                            }
+                        }
+                    }
                 }
                 Status.ERROR -> {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
             }
         })
-        logout_btn.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            launchMainActivity()
+    }
+
+    private fun pickImage() {
+        profile_user_image.setOnClickListener {
+            val intent = Intent().apply {
+                type = "image/*"
+                action = Intent.ACTION_GET_CONTENT
+            }
+            startForeResult.launch(intent)
         }
     }
 
-    private fun launchMainActivity() {
+    private fun uploadImage(data: Intent?) {
+        viewModel.uploadImageToFirebase(data?.data).observe(requireActivity(), {
+            when (it.status) {
+                Status.LOADING -> {
+                    Toast.makeText(activity,"Uploading...,",Toast.LENGTH_SHORT).show()
+                }
+                Status.SUCCESS -> {
+                    it.data?.let {  url->
+                        context?.let { cntx ->
+                            Glide.with(cntx)
+                                .load(url)
+                                .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
+                                .into(profile_user_image)
+                        }
+                    }
+                }
+                Status.ERROR -> {
+                    Toast.makeText(activity,it.message,Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+
+    private fun setupLogoutButton() {
+        logout_btn.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
+            goBackToRegistrationActivity()
+        }
+    }
+
+    private fun goBackToRegistrationActivity() {
         val intent = Intent(activity, RegisterActivity::class.java)
         startActivity(intent)
         activity?.finish()

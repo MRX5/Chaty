@@ -2,6 +2,7 @@ package com.example.chaty.utils
 
 object Constants {
 
+
     val USERS="Users"
     val PEOPLE="People"
     val FRIENDS="Friends"
@@ -10,6 +11,7 @@ object Constants {
     val MESSAGES="Messages"
     val CHAT_MESSAGES="ChatMessages"
     val LAST_MESSAGE="Last-Message"
+    val IMAGES: String="Images"
 
     const val BASE_URL="https://fcm.googleapis.com"
     const val CONTENT_TYPE="application/json"

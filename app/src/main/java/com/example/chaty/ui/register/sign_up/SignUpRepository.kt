@@ -1,6 +1,8 @@
 package com.example.chaty.ui.register.sign_up
 
 import androidx.lifecycle.MutableLiveData
+import com.example.chaty.firebase.MyFirebase.mAuth
+import com.example.chaty.firebase.MyFirebase.mDatabase
 import com.example.chaty.model.User
 import com.example.chaty.utils.Constants
 import com.example.chaty.utils.Resource
@@ -15,16 +17,7 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class SignUpRepository {
-    private val mAuth: FirebaseAuth by lazy {
-        FirebaseAuth.getInstance()
-    }
 
-    private val mDatabase: FirebaseDatabase by lazy {
-        FirebaseDatabase.getInstance()
-    }
-    private val firebaseMessaging: FirebaseMessaging by lazy {
-        FirebaseMessaging.getInstance()
-    }
 
     fun createAccount(email: String, password: String): MutableLiveData<Resource<Unit>> {
         val mLiveData = MutableLiveData<Resource<Unit>>()

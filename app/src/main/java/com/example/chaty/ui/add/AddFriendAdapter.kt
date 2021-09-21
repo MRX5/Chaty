@@ -6,13 +6,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.chaty.R
 import com.example.chaty.model.User
 import com.example.chaty.listeners.OnItemClickListener
 import com.google.android.material.button.MaterialButton
+import kotlinx.android.synthetic.main.add_friend_layout.view.*
 
 class AddFriendAdapter(var people: List<User>, val listener: OnItemClickListener) :
     RecyclerView.Adapter<AddFriendAdapter.AddFriendViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddFriendViewHolder {
         return AddFriendViewHolder(
             LayoutInflater.from(parent.context)
@@ -21,21 +24,21 @@ class AddFriendAdapter(var people: List<User>, val listener: OnItemClickListener
     }
 
     override fun onBindViewHolder(holder: AddFriendViewHolder, position: Int) {
-        holder.bind(people[position],listener)
+        holder.bind(people[position], listener)
     }
 
     override fun getItemCount() = people.size
 
     class AddFriendViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val userImage=itemView.findViewById<ImageView>(R.id.user_image)
-        private val userName=itemView.findViewById<TextView>(R.id.user_name)
-        private val addFriendBtn =itemView.findViewById<MaterialButton>(R.id.add_friend_btn)
-        fun bind(user: User,listener: OnItemClickListener) {
-            userName.text=user.userName
-            addFriendBtn.setOnClickListener {
+
+        fun bind(user: User, listener: OnItemClickListener) {
+            itemView.user_name.text = user.userName
+            Glide.with(itemView.context).load(user.userImageUrl)
+                .placeholder(R.drawable.default_user)
+                .into(itemView.user_image)
+            itemView.add_friend_btn.setOnClickListener {
                 listener.onItemClick(user)
             }
         }
-
     }
 }

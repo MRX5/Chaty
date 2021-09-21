@@ -12,13 +12,16 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.chaty.R
 import com.example.chaty.model.User
 import com.example.chaty.ui.people.PeopleFragment
 import com.example.chaty.ui.people.PeopleFragmentDirections
 import com.example.chaty.utils.Status
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_chats.*
 import kotlinx.android.synthetic.main.fragment_conversation.*
+import kotlinx.android.synthetic.main.fragment_conversation.user_image
 
 
 class ConversationFragment : Fragment() {
@@ -46,10 +49,21 @@ class ConversationFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        user_name.text = user.userName
+        setupUI()
         setupRecycler()
         loadChat()
         sendMessage()
+    }
+
+    private fun setupUI() {
+        user_name.text = user.userName
+        Glide.with(this).load(user.userImageUrl)
+            .placeholder(R.drawable.default_user)
+            .into(user_image)
+
+        message_edittext.setOnClickListener {
+            conversation_rv?.scrollToPosition(adapter.itemCount - 1)
+        }
     }
 
     private fun loadChat() {
@@ -67,11 +81,13 @@ class ConversationFragment : Fragment() {
         })
     }
 
+
     private fun setupRecycler() {
         adapter = ConversationAdapter(emptyList())
         conversation_rv.layoutManager = LinearLayoutManager(context)
         conversation_rv.adapter = adapter
     }
+
 
     private fun sendMessage() {
         send_msg_btn.setOnClickListener {
@@ -81,7 +97,6 @@ class ConversationFragment : Fragment() {
                     when (it.status) {
                         Status.SUCCESS -> {
                             message_edittext.setText("")
-                            // TODO("Implement push notification is missing")
                         }
                         Status.ERROR -> {
                             Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()

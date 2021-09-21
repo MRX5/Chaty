@@ -1,5 +1,6 @@
 package com.example.chaty.ui.profile
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.chaty.model.User
@@ -12,5 +13,6 @@ class ProfileViewModel: ViewModel() {
         getCurrentUser()
     }
     private fun getCurrentUser(){mLiveData=repository.getCurrentUser()}
-    fun getUserName()=mLiveData
+    fun getUserInfo()=mLiveData
+    fun uploadImageToFirebase(data: Uri?) = repository.uploadImage(data)
 }

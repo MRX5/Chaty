@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:src="@drawable/aaa" />
+            android:src="@drawable/default_user" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -29,7 +29,6 @@
         android:layout_marginStart="16dp"
         android:text="Mostafa Gad"
         android:textSize="16sp"
-        android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/chat_last_message"
         app:layout_constraintStart_toEndOf="@+id/materialCardView"
@@ -45,4 +44,24 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/chat_username"
         app:layout_constraintTop_toBottomOf="@+id/chat_username" />
+
+    <TextView
+        android:id="@+id/message_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Yestarday"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chat_username" />
+
+    <View
+        android:id="@+id/unread_messages_notify"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:background="@drawable/messages_count"
+        app:layout_constraintBottom_toBottomOf="@+id/chat_last_message"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/chat_last_message" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

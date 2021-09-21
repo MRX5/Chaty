@@ -2,6 +2,7 @@ package com.example.chaty.ui.conversation
 
 import android.util.Log
 import android.util.TimeUtils
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.example.chaty.firebase.MyFirebase.mAuth
 import com.example.chaty.firebase.MyFirebase.mDatabase
@@ -10,9 +11,7 @@ import com.example.chaty.network.RetrofitBuilder
 import com.example.chaty.utils.Constants
 import com.example.chaty.utils.Resource
 import com.example.chaty.utils.Utils
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
@@ -41,6 +40,7 @@ class ConversationRepository {
                             messagesList.add(msg)
                         }
                     }
+                    markAsSeen(chatID)
                     mLiveData.value = Resource.success(messagesList)
                 }
 
@@ -52,6 +52,13 @@ class ConversationRepository {
         return mLiveData
     }
 
+    private fun markAsSeen(chatID: String) {
+        val ref= mDatabase.
+        getReference("${Constants.CHATS}/$uid/$chatID/${Constants.LAST_MESSAGE}")
+        ref.child("seen")
+            .setValue(true)
+    }
+
     fun sendMessage(receiver: User, messageBody: String): MutableLiveData<Resource<Unit>> {
         val mLiveData = MutableLiveData<Resource<Unit>>()
         val ref = mDatabase.reference
@@ -61,11 +68,13 @@ class ConversationRepository {
             .child(chatID)
             .child(Constants.MESSAGES)
             .child(messageID)
-            .setValue(Message(messageBody, "", uid, receiver.userID)).addOnSuccessListener {
-                mLiveData.value = Resource.success(null)
+            .setValue(Message(messageBody, messageID, uid, receiver.userID)).addOnSuccessListener {
 
-                updateSenderChatLastMessage(receiver.userID, messageBody, messageID)
+                mLiveData.value = Resource.success(null)
+                updateSenderChatLastMessage(receiver.userID,chatID, messageBody, messageID)
+                updateReceiverChatLastMessage(receiver.userID, chatID, messageBody, messageID)
                 sendNotification(receiver, messageBody)
+
             }.addOnFailureListener {
                 mLiveData.value = Resource.error(it.message.toString(), null)
             }
@@ -74,19 +83,16 @@ class ConversationRepository {
 
     private fun updateSenderChatLastMessage(
         receiverID: String,
+        chatID: String,
         messageBody: String,
         messageID: String
     ) {
         val ref = mDatabase.reference
-        val chatID = Utils.getChatID(uid, receiverID)
         ref.child(Constants.CHATS)
             .child(uid)
             .child(chatID)
             .child(Constants.LAST_MESSAGE)
-            .setValue(Chat(userID = receiverID, lastMessage = messageBody, time = messageID))
-            .addOnSuccessListener {
-                updateReceiverChatLastMessage(receiverID, chatID, messageBody, messageID)
-            }
+            .setValue(Chat(userID = receiverID, lastMessage = messageBody, time = messageID,seen = true))
     }
 
     private fun updateReceiverChatLastMessage(
@@ -100,9 +106,7 @@ class ConversationRepository {
             .child(receiverID)
             .child(chatID)
             .child(Constants.LAST_MESSAGE)
-            .setValue(Chat(userID = uid, lastMessage = messageBody, time = messageID))
-            .addOnSuccessListener {
-            }
+            .setValue(Chat(userID = uid, lastMessage = messageBody, time = messageID,seen = false))
     }
 
     private fun sendNotification(receiver: User, messageBody: String) {
@@ -128,5 +132,7 @@ class ConversationRepository {
             }
         }
     }
+
+
 
 }
