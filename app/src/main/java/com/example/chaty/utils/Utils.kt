@@ -44,19 +44,19 @@ class Utils {
                     if (diff == 0) return clearLeadingZeros(timeFormat.format(calendar2.time)     )   // in the same day
                     if (diff == 1) return "Yesterday"
                     return when (calendar2.get(Calendar.DAY_OF_WEEK)) {
-                        Calendar.SATURDAY -> "Sat"
-                        Calendar.SUNDAY -> "Sun"
-                        Calendar.MONDAY -> "Mon"
-                        Calendar.TUESDAY -> "Tue"
-                        Calendar.WEDNESDAY -> "Wed"
-                        Calendar.THURSDAY -> "Thu"
-                        else -> "Fri"
+                        Calendar.SATURDAY -> "Saturday"
+                        Calendar.SUNDAY -> "Sunday"
+                        Calendar.MONDAY -> "Monday"
+                        Calendar.TUESDAY -> "Tuesday"
+                        Calendar.WEDNESDAY -> "Wednesday"
+                        Calendar.THURSDAY -> "Thursday"
+                        else -> "Friday"
                     }
                 }
             }
             return dateFormat.format(calendar2.time)
         }
-        fun clearLeadingZeros(time:String):String{
+        private fun clearLeadingZeros(time:String):String{
             return if(time[0]=='0') time.drop(1) else time
         }
         fun convertPxToDp(context: Context, px: Int): Int {
@@ -72,9 +72,7 @@ class Utils {
                 calendar2.timeInMillis = messages[position - 1].time.toLong()
                 val diff = calendar1.timeInMillis - calendar2.timeInMillis
                 val days = diff / (1000 * 60 * 60 * 24)
-                if(messages[position].body=="hi shosho hi hi"){
-                    Log.d("mostafa", "$days")
-                }
+
                 return if (days == 0L) {
                     calendar1[Calendar.DAY_OF_MONTH] == calendar2[Calendar.DAY_OF_MONTH]
                 } else false

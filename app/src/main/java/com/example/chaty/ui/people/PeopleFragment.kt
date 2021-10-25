@@ -19,7 +19,6 @@ import com.example.chaty.ui.add.AddViewModel
 import com.example.chaty.utils.Status
 import kotlinx.android.synthetic.main.fragment_people.*
 
-private const val TAG = "mostafa"
 class PeopleFragment : Fragment(), OnItemClickListener {
     private lateinit var viewModel:PeopleViewModel
     private lateinit var adapter: PeopleAdapter
@@ -59,9 +58,5 @@ class PeopleFragment : Fragment(), OnItemClickListener {
     override fun onItemClick(user: User) {
         val directions=PeopleFragmentDirections.actionPeopleFragmentToConversationFragment(user)
         navController.navigate(directions)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }

@@ -1,18 +1,15 @@
 package com.example.chaty.ui.chats
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,11 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.chaty.R
 import com.example.chaty.listeners.OnItemClickListener
-import com.example.chaty.model.Chat
 import com.example.chaty.model.User
-import com.example.chaty.ui.people.PeopleFragmentDirections
 import com.example.chaty.utils.Status
-import com.firebase.ui.database.FirebaseRecyclerOptions
 import kotlinx.android.synthetic.main.fragment_chats.*
 
 private const val TAG = "ChatsFragmentmostafa"
