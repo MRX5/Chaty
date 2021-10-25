@@ -12,6 +12,7 @@ import com.example.chaty.R
 import com.example.chaty.firebase.MyFirebase
 import com.example.chaty.ui.main.MainViewModel
 import com.example.chaty.utils.Status
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        MobileAds.initialize(this) {}
         uploadToken()
         setupBottomNavigation()
     }

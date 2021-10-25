@@ -13,6 +13,7 @@ import com.example.chaty.utils.Constants
 class ProfileRepository {
     private val userLiveData=MutableLiveData<Resource<User>>()
     private val imageLiveData=MutableLiveData<Resource<String>>()
+
     fun getCurrentUser(): MutableLiveData<Resource<User>> {
         val ref = mDatabase.reference
         val uid = mAuth.currentUser?.uid.toString()

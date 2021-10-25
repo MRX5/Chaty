@@ -19,7 +19,7 @@ import com.example.chaty.model.User
 import com.example.chaty.utils.Utils
 import kotlinx.android.synthetic.main.chat_layout.view.*
 
-class ChatsAdapter(var chats: List<Chat>, val listener: OnItemClickListener) :
+class ChatsAdapter(var chats: List<Chat>, private val listener: OnItemClickListener) :
     RecyclerView.Adapter<ChatsAdapter.ChatsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatsViewHolder {

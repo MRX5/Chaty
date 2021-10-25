@@ -55,7 +55,6 @@ class AddFragment : Fragment(), OnItemClickListener {
 
     private fun setupNavigation() {
         friends_request_btn.setOnClickListener {
-            Toast.makeText(context,"aaa",Toast.LENGTH_SHORT).show()
             navController.navigate(R.id.action_addFragment_to_friendsRequestsFragment)
         }
     }

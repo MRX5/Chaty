@@ -1,5 +1,6 @@
 package com.example.chaty.ui.register.login
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -15,15 +16,13 @@ import com.example.chaty.ui.main.MainActivity
 import com.example.chaty.utils.Status
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.progress_dialog.*
 
 
 class LoginFragment : Fragment() {
 
     private lateinit var navController: NavController
     private val viewModel: LoginViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,21 +34,28 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
+
         login_btn.setOnClickListener {
             val email = email_edittext.text.toString()
             val password = password_edittext.text.toString()
+
+            val builder= AlertDialog.Builder(context)
+            builder.setView(R.layout.progress_dialog)
+            val dialog=builder.create()
 
             if (checkInformation(email, password)) {
                 viewModel.login(email, password)
                 viewModel.getLoginState().observe(viewLifecycleOwner, {
                     when (it.status) {
                         Status.SUCCESS -> {
-                            Toast.makeText(context, "Done", Toast.LENGTH_LONG).show()
+                            dialog.dismiss()
                             launchMainActivity()
                         }
                         Status.LOADING -> {
+                            dialog.show()
                         }
                         Status.ERROR -> {
+                            dialog.dismiss()
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                         }
                     }

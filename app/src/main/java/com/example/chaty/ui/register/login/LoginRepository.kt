@@ -19,7 +19,6 @@ class LoginRepository {
     }
 
     fun login(email: String, password: String): MutableLiveData<Resource<Unit>> {
-
         val mLiveData = MutableLiveData<Resource<Unit>>()
         mLiveData.value = Resource.loading(null)
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
@@ -28,25 +27,6 @@ class LoginRepository {
             } else {
                 mLiveData.value = Resource.error(task.exception?.message.toString(), null)
             }
-        }
-        return mLiveData
-    }
-
-    fun uploadToken() :MutableLiveData<Resource<Unit>>{
-        val mLiveData=MutableLiveData<Resource<Unit>>()
-        firebaseMessaging.token.addOnSuccessListener { token ->
-            val ref = mDatabase.reference
-            val uid = mAuth.currentUser?.uid.toString()
-            ref.child("Users")
-                .child(uid)
-                .child("token")
-                .setValue(token.toString()).addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        mLiveData.value= Resource.success(null)
-                    }else{
-                        mLiveData.value= Resource.error(task.exception?.message.toString(),null)
-                    }
-                }
         }
         return mLiveData
     }

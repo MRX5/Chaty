@@ -1,5 +1,6 @@
 package com.example.chaty.ui.register.sign_up
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -18,9 +19,6 @@ private const val TAG = "SignUpFragment"
 class SignUpFragment : Fragment() {
 
     private val viewModel:SignUpViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,17 +35,23 @@ class SignUpFragment : Fragment() {
             val email = signup_email.text.toString()
             val password = signup_password.text.toString()
 
+            val builder= AlertDialog.Builder(context)
+            builder.setView(R.layout.progress_dialog)
+            val dialog=builder.create()
+
             if (checkInformation(userName, email, password)) {
                 viewModel.createAccount(email, password)
                 viewModel.createAccountState().observe(viewLifecycleOwner,{
                     when(it.status){
                         Status.SUCCESS->{
-                            Toast.makeText(context,"done",Toast.LENGTH_LONG).show()
+                            dialog.dismiss()
                             saveUserIntoDatabase(userName, email)
                         }
                         Status.LOADING->{
+                            dialog.show()
                         }
                         Status.ERROR->{
+                            dialog.dismiss()
                             Toast.makeText(context,it.message,Toast.LENGTH_LONG).show()
                         }
                     }

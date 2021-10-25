@@ -27,7 +27,7 @@ import com.example.chaty.utils.Status
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import kotlinx.android.synthetic.main.fragment_chats.*
 
-
+private const val TAG = "ChatsFragmentmostafa"
 class ChatsFragment : Fragment(),OnItemClickListener {
 
     private lateinit var adapter: ChatsAdapter
@@ -67,15 +67,15 @@ class ChatsFragment : Fragment(),OnItemClickListener {
            viewModel.loadChats().observe(requireActivity(),{
                 when(it.status) {
                     Status.LOADING->{
-                        chats_progressbar.visibility=VISIBLE
+                        chats_progressbar?.visibility=VISIBLE
                     }
                     Status.SUCCESS -> {
-                        chats_progressbar.visibility= GONE
+                        chats_progressbar?.visibility= GONE
                         adapter.chats = it.data!!
                         adapter.notifyDataSetChanged()
                     }
                     Status.ERROR -> {
-                        chats_progressbar.visibility= GONE
+                        chats_progressbar?.visibility= GONE
                         Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -99,13 +99,5 @@ class ChatsFragment : Fragment(),OnItemClickListener {
     override fun onItemClick(user: User) {
         val directions= ChatsFragmentDirections.actionChatsFragmentToConversationFragment(user)
         navController.navigate(directions)
-    }
-
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onStop() {
-        super.onStop()
     }
 }

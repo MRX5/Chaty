@@ -48,7 +48,6 @@ class ConversationRepository {
                     mLiveData.value = Resource.error(error.message, null)
                 }
             })
-
         return mLiveData
     }
 
@@ -69,7 +68,6 @@ class ConversationRepository {
             .child(Constants.MESSAGES)
             .child(messageID)
             .setValue(Message(messageBody, messageID, uid, receiver.userID)).addOnSuccessListener {
-
                 mLiveData.value = Resource.success(null)
                 updateSenderChatLastMessage(receiver.userID,chatID, messageBody, messageID)
                 updateReceiverChatLastMessage(receiver.userID, chatID, messageBody, messageID)

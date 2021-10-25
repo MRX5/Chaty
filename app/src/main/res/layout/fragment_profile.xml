@@ -36,6 +36,18 @@
         app:layout_constraintStart_toStartOf="@+id/materialCardView"
         app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:adSize="BANNER"
+        app:adUnitId="@string/banner_ad_unit_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profile_username">
+    </com.google.android.gms.ads.AdView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logout_btn"
         android:layout_width="wrap_content"
