@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         MobileAds.initialize(this) {}
+        viewModel.updateUserStatus("online")
         uploadToken()
         setupBottomNavigation()
     }
@@ -47,5 +48,15 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //viewModel.updateUserStatus("online")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        //viewModel.updateUserStatus("offline")
     }
 }

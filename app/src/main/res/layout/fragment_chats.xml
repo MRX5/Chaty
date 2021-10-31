@@ -6,23 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.chats.ChatsFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/materialCardView"
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/user_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_margin="16dp"
-        app:cardCornerRadius="50dp"
+        android:src="@drawable/default_user"
+        android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/user_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_user" />
-
-    </com.google.android.material.card.MaterialCardView>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,9 +24,9 @@
         android:textColor="@color/black"
         android:textSize="26sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
-        app:layout_constraintStart_toEndOf="@+id/materialCardView"
-        app:layout_constraintTop_toTopOf="@+id/materialCardView" />
+        app:layout_constraintBottom_toBottomOf="@+id/user_image"
+        app:layout_constraintStart_toEndOf="@+id/user_image"
+        app:layout_constraintTop_toTopOf="@+id/user_image" />
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
@@ -47,7 +39,7 @@
         app:iconifiedByDefault="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/user_image" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chats_rv"

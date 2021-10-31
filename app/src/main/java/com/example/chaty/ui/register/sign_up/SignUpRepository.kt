@@ -39,7 +39,7 @@ class SignUpRepository {
 
         ref.child(Constants.USERS)
             .child(uid)
-            .setValue(User(uid,userName,"", email, ""))
+            .setValue(User(uid,userName,"", email, "","online"))
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     mLiveData.value = Resource.success(null)
