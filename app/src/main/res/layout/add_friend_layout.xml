@@ -38,10 +38,10 @@
         android:id="@+id/add_friend_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingEnd="8dp"
-        android:paddingStart="8dp"
-
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:textAllCaps="false"
+        android:backgroundTint="#0D1770E6"
+        android:textColor="#1770E6"
         android:text="@string/add_friend"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

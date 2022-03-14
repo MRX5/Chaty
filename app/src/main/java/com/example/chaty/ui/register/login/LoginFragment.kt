@@ -45,7 +45,7 @@ class LoginFragment : Fragment() {
 
             if (checkInformation(email, password)) {
                 viewModel.login(email, password)
-                viewModel.getLoginState().observe(viewLifecycleOwner, {
+                viewModel.getLoginState().observe(viewLifecycleOwner) {
                     when (it.status) {
                         Status.SUCCESS -> {
                             dialog.dismiss()
@@ -59,7 +59,7 @@ class LoginFragment : Fragment() {
                             Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                         }
                     }
-                })
+                }
             }
         }
         signup_btn.setOnClickListener {

@@ -34,7 +34,7 @@ class MainRepository {
         return mLiveData
     }
 
-    fun updateUserStatus(status: String){
+    fun updateUserStatus(){
         val uid = mAuth.currentUser?.uid.toString()
         val ref= mDatabase.getReference("${Constants.USERS}/$uid/status")
         val connectedRef= FirebaseDatabase.getInstance().getReference(".info/connected")
@@ -55,10 +55,5 @@ class MainRepository {
             }
 
         })
-        val mp= mutableMapOf<String, Any>()
-        mp["status"] = status
-        //ref.updateChildren(mp)
-        ref.onDisconnect().setValue("offline")
-        ref.setValue("online")
     }
 }

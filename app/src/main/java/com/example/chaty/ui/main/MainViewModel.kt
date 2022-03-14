@@ -11,7 +11,7 @@ class MainViewModel :ViewModel() {
     fun uploadToken(){
         uploadState=repository.uploadToken()
     }
-    fun updateUserStatus(status:String)=repository.updateUserStatus(status)
+    fun updateUserStatus()=repository.updateUserStatus()
     fun getUploadState()=uploadState
 
 }

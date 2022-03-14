@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -44,6 +45,9 @@ class PeopleFragment : Fragment(), OnItemClickListener {
             when(it.status){
                 Status.SUCCESS->{
                     it.data?.let { users -> adapter.setList(users) }
+                }
+                Status.ERROR->{
+                    it.message?.let {error-> Toast.makeText(context,error,Toast.LENGTH_LONG).show() }
                 }
             }
         })

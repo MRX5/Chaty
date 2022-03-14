@@ -12,18 +12,22 @@
         android:layout_height="50dp"
         android:scaleType="centerCrop"
         android:src="@drawable/default_user"
+        app:civ_border_width="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+<!--
     <View
+        android:id="@+id/user_status"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:layout_marginBottom="8dp"
-        android:backgroundTint="#00F13C"
+        android:layout_marginBottom="4dp"
+        android:backgroundTint="@color/green"
         android:background="@drawable/user_status"
         app:layout_constraintBottom_toBottomOf="@+id/user_image"
         app:layout_constraintStart_toStartOf="@+id/guideline3" />
+-->
 
     <TextView
         android:id="@+id/user_name"

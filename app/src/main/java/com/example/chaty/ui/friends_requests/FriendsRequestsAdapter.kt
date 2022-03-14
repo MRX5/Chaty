@@ -14,7 +14,7 @@ import com.example.chaty.model.Friend_Request
 import com.example.chaty.model.User
 import kotlinx.android.synthetic.main.friend_request_layout.view.*
 
-class FriendsRequestsAdapter(var requests: List<Friend_Request>, val listener: FriendRequestListener) :
+class FriendsRequestsAdapter(var requests: List<Friend_Request>, private val listener: FriendRequestListener) :
     RecyclerView.Adapter<FriendsRequestsAdapter.FriendsRequestsViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
