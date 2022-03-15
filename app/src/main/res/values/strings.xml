@@ -22,4 +22,6 @@
     <string name="accepted">Accepted</string>
     <string name="rejected">Rejected</string>
     <string name="banner_ad_unit_id">ca-app-pub-7572723734808420/3661341668</string>
+    <string name="requests">Requests</string>
+    <string name="friends">Friends</string>
 </resources>

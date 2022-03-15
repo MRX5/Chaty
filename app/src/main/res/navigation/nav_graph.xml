@@ -14,6 +14,7 @@
             android:id="@+id/action_chatsFragment_to_conversationFragment"
             app:destination="@id/conversationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/peopleFragment"
         android:name="com.example.chaty.ui.people.PeopleFragment"
@@ -23,20 +24,18 @@
             android:id="@+id/action_peopleFragment_to_conversationFragment"
             app:destination="@id/conversationFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.chaty.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+
     <fragment
         android:id="@+id/addFragment"
         android:name="com.example.chaty.ui.add.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
-        <action
-            android:id="@+id/action_addFragment_to_friendsRequestsFragment"
-            app:destination="@id/friendsRequestsFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_add" />
     <fragment
         android:id="@+id/friendsRequestsFragment"
         android:name="com.example.chaty.ui.friends_requests.FriendsRequestsFragment"

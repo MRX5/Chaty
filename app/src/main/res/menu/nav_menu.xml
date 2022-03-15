@@ -8,12 +8,20 @@
 
     <item android:id="@+id/peopleFragment"
         app:showAsAction="ifRoom"
-        android:title="@string/people"
+        android:title="@string/friends"
         android:icon="@drawable/people"/>
+
     <item android:id="@+id/addFragment"
         app:showAsAction="ifRoom"
         android:title="@string/add_friend"
+        android:icon="@drawable/icon_add_friends"/>
+
+    <item android:id="@+id/friendsRequestsFragment"
+        app:showAsAction="ifRoom"
+        android:title="@string/requests"
         android:icon="@drawable/add_friend"/>
+
+
 
     <item android:id="@+id/profileFragment"
         android:title="@string/profile"

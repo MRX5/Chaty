@@ -55,7 +55,7 @@ class ConversationAdapter( var messages: List<Message>) :
         fun bind(message: Message,sameAsPrevious:Boolean,atTheSameDay:Boolean) {
 
             if(!sameAsPrevious){     // large space between messages
-                val dp=Utils.convertPxToDp(itemView.context,10)
+                val dp=Utils.convertPxToDp(itemView.context,20)
                 itemView.updatePadding(top = dp)
             }else {                  // set as normal
                 val dp=Utils.convertPxToDp(itemView.context,4)
@@ -76,7 +76,7 @@ class ConversationAdapter( var messages: List<Message>) :
         fun bind(message: Message,sameAsPrevious:Boolean,atTheSameDay:Boolean) {
 
             if(!sameAsPrevious){   // large space between messages
-                val dp=Utils.convertPxToDp(itemView.context,10)
+                val dp=Utils.convertPxToDp(itemView.context,20)
                 itemView.updatePadding(top = dp)
             } else {                 // set as normal
                 val dp=Utils.convertPxToDp(itemView.context,4)

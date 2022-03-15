@@ -43,7 +43,6 @@ class AddFragment : Fragment(), OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         setupRecycler()
-        setupNavigation()
         loadFriends()
     }
 
@@ -53,14 +52,10 @@ class AddFragment : Fragment(), OnItemClickListener {
         friends_rv.adapter = adapter
     }
 
-    private fun setupNavigation() {
-        friends_request_btn.setOnClickListener {
-            navController.navigate(R.id.action_addFragment_to_friendsRequestsFragment)
-        }
-    }
+
 
     private fun loadFriends() {
-        viewModel.getPeopleLiveData().observe(requireActivity(), {
+        viewModel.getPeopleLiveData().observe(requireActivity()) {
             when (it.status) {
                 Status.SUCCESS -> {
                     adapter.people = it.data!!
@@ -70,12 +65,12 @@ class AddFragment : Fragment(), OnItemClickListener {
                     Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
                 }
             }
-        })
+        }
     }
 
     override fun onItemClick(user: User) {
         viewModel.addFriend(user)
-        viewModel.getAddFriendState().observe(viewLifecycleOwner, {
+        viewModel.getAddFriendState().observe(viewLifecycleOwner) {
             when (it.status) {
                 Status.SUCCESS -> {
                     Toast.makeText(context, "done", Toast.LENGTH_SHORT).show()
@@ -84,6 +79,6 @@ class AddFragment : Fragment(), OnItemClickListener {
                     Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
                 }
             }
-        })
+        }
     }
 }

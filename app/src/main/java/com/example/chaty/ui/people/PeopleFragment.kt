@@ -29,7 +29,6 @@ class PeopleFragment : Fragment(), OnItemClickListener {
         super.onCreate(savedInstanceState)
         viewModel= ViewModelProvider(requireActivity()).get(PeopleViewModel::class.java)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,16 +40,18 @@ class PeopleFragment : Fragment(), OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         setupRecycler()
-        viewModel.loadFriends().observe(requireActivity(),{
-            when(it.status){
-                Status.SUCCESS->{
+        viewModel.loadFriends().observe(requireActivity()) {
+            when (it.status) {
+                Status.SUCCESS -> {
                     it.data?.let { users -> adapter.setList(users) }
                 }
-                Status.ERROR->{
-                    it.message?.let {error-> Toast.makeText(context,error,Toast.LENGTH_LONG).show() }
+                Status.ERROR -> {
+                    it.message?.let { error ->
+                        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
-        })
+        }
     }
 
     private fun setupRecycler() {
@@ -63,4 +64,5 @@ class PeopleFragment : Fragment(), OnItemClickListener {
         val directions=PeopleFragmentDirections.actionPeopleFragmentToConversationFragment(user)
         navController.navigate(directions)
     }
+
 }
